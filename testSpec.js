@@ -38,7 +38,7 @@ describe('Onliner catalog page', () => {
         }
     });
 
-    it('', async () => {
+    it('sorting does not work correctly (the cheapest product is more expensive than others)', async () => {
         await CatalogPage.clickOn('//a[@class="schema-order__link"]');
         await CatalogPage.clickOn('//div[@class="schema-order__item" and contains(., "Дорогие")]');
         await CatalogPage.waitForSeconds(3);

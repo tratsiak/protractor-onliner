@@ -1,4 +1,4 @@
-# protractor-onliner
+# Tests on protractor and jasmine for Onliner.
 
 # Guide:
 

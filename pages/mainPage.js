@@ -1,11 +1,9 @@
+let EC = protractor.ExpectedConditions;
+
 class Page {
 
-    async waitForAngular(type) {
-        await browser.waitForAngularEnabled(type);
-    }
-
     async open() {
-        await browser.get('https://onliner.by');
+        await browser.get('');
     }
 
     async clickOn(xpath) {
@@ -13,8 +11,7 @@ class Page {
     }
 
     async getTitle() {
-        let title = await browser.getTitle();
-        return title;
+        return await browser.getTitle();
     }
 
     async getElement(xpath) {
@@ -26,17 +23,20 @@ class Page {
     }
 
     async elemIsPresent(xpath) {
-        let elemIsPresent = await element(by.xpath(xpath)).isPresent();
-        return elemIsPresent;
+        return await element(by.xpath(xpath)).isPresent();
     }
 
     async getTextOfElement(webElement) {
-        let text = await webElement.getText();
-        return text;
+        return await webElement.getText();
     }
 
-    async waitForSeconds(seconds) {
-        await browser.sleep(seconds * 1000);
+    async waitElement(xpath) {
+        await browser.wait(EC.elementToBeClickable(element(By.xpath(xpath))));
+    }
+
+    async getHeader(xpath) {
+        let webElement = await this.getElement(xpath);
+        return await this.getTextOfElement(webElement);
     }
 
 }

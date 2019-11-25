@@ -1,8 +1,8 @@
-//Testcase #1
+//For test case #1
 
 const productName = 'HONOR';
 
-//For testcase #2
+//For test case #2
 
 const invalidEmail = 'invalidEmail',
       shortPassword = '1234',

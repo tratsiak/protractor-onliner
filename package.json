@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node node_modules/protractor/bin/protractor conf.js",
-    "pretest": "node node_modules/protractor/bin/webdriver-manager update & node node_modules/protractor/bin/webdriver-manager start --detach"
+    "prepare": "node node_modules/protractor/bin/webdriver-manager update",
+    "test": "node node_modules/protractor/bin/protractor conf.js"
   },
   "author": "",
   "license": "ISC",

@@ -6,8 +6,15 @@ class Page {
         await browser.get('');
     }
 
-    async clickOn(xpath) {
-        await element(by.xpath(xpath)).click();
+    /**
+     * Click depending on the accepted parameter: string or WebElement
+     * @param webElement
+     */
+    async clickOn(webElement) {
+        if (typeof webElement === 'string') 
+            await element(by.xpath(webElement)).click();
+        else 
+            await webElement.click();
     }
 
     async getTitle() {
@@ -37,6 +44,15 @@ class Page {
     async getHeader(xpath) {
         let webElement = await this.getElement(xpath);
         return await this.getTextOfElement(webElement);
+    }
+
+    async scrollPageDown() {
+        await browser.actions().sendKeys(protractor.Key.PAGE_DOWN).perform();
+    }
+
+    async clickAsUser(xpath) {
+        let element = await this.getElement(xpath);
+        await browser.actions().click(element).perform();
     }
 
 }

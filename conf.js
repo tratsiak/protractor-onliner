@@ -1,16 +1,18 @@
 exports.config = {
     framework: 'jasmine',
     capabilities: {
-        browserName: 'chrome',
-        specs: [
-            '**/*[sS]pec.js'
-        ]
+        browserName: 'chrome'
     },
-    jasmineNodeOpts: {
-        defaultTimeoutInterval: 60000
-      },
+    directConnect: true,
+    specs: [
+        './spec/catalogSpec.js', 
+        //'./spec/registerSpec.js',
+        //'./spec/basketSpec.js',
+        //'./spec/servicesSpec.js',
+        //'./spec/forumSpec.js'
+    ],
     baseUrl: 'https://onliner.by',
-    onPrepare: () => {
+    onPrepare: async () => {
         browser.waitForAngularEnabled(false);
         browser.get('');
         browser.driver.manage().window().maximize();

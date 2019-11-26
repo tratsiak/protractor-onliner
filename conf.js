@@ -6,10 +6,10 @@ exports.config = {
     directConnect: true,
     specs: [
         './spec/catalogSpec.js', 
-        //'./spec/registerSpec.js',
-        //'./spec/basketSpec.js',
-        //'./spec/servicesSpec.js',
-        //'./spec/forumSpec.js'
+        './spec/registerSpec.js',
+        './spec/basketSpec.js',
+        './spec/servicesSpec.js',
+        './spec/forumSpec.js'
     ],
     baseUrl: 'https://onliner.by',
     onPrepare: async () => {

@@ -7,7 +7,7 @@
 
 # About:
 
-5 test cases that check sections of the https://onliner.by such as: Catalog, Registration, Cart, Forum, Services.
+5 test cases that check sections of the https://onliner.by such as: Catalog, Registration, Basket, Forum, Services.
 Data for tests are in the data.js file.
 
 # Contacts:

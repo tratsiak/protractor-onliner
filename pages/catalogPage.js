@@ -20,6 +20,9 @@ class CatalogPage extends Page {
     productLink = '//div[contains(@class, "product__title")]//a';
     basketButton = '//a[contains(@class, "product-aside__item-button")]';
     cartProduct = '//div[contains(@class, "cart-products")]';
+    cartWrapper = '//div[@id="cart-main-container"]';
+    lastResult = '//div[@id="schema-products"]/div[last()]';
+    intoBusketButton = '//a[contains(@class, "product-aside__item-button") and contains(., "В корзине")]';
 
     async getPrice(element) {
         let text = await this.getTextOfElement(element);

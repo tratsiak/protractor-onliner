@@ -3,6 +3,7 @@ const CatalogPage = require('../pages/catalogPage');
 
 describe('Onliner catalog page', () => {
     it('tab title should be "Каталог Onliner"', async () => {
+        await CatalogPage.open();
         await CatalogPage.clickOn(CatalogPage.catalogButton);
         expect(CatalogPage.getTitle()).toBe('Каталог Onliner');
     });
@@ -13,29 +14,33 @@ describe('Onliner catalog page', () => {
     });
 
     it(`should be contain ${data.productName} on two pages of results`, async () => {
+        await CatalogPage.isVisibility(CatalogPage.lastResult);
         await CatalogPage.scrollPageDown();
-        browser.sleep(3000); //!!!
+        await CatalogPage.isClickable(CatalogPage.manufactutrerCheckbox);
         await CatalogPage.clickAsUser(CatalogPage.manufactutrerCheckbox);
-        browser.sleep(3000); //!!!
+        await CatalogPage.isVisibility(CatalogPage.lastResult);
+        await CatalogPage.isClickable(CatalogPage.lastResult);
         let productsName = await CatalogPage.getProductsName(CatalogPage.productName);
         for (productName of productsName) {
             expect(productName).toContain(data.productName);
         }
         await CatalogPage.clickOn(CatalogPage.pagination);
         await CatalogPage.clickOn(CatalogPage.numberOfPage);
-        browser.sleep(3000); //!!!
+        await CatalogPage.isVisibility(CatalogPage.lastResult);
+        await CatalogPage.isClickable(CatalogPage.lastResult);
         productsName = await CatalogPage.getProductsName(CatalogPage.productName);
         for (productName of productsName) {
             expect(productName).toContain(data.productName);
         }
+        //НЕ УСПЕВАЕТ ЗАХВАТИТЬ ВСЕ ИМЕНА ПРОДУКТОВ
     });
 
     it('sorting does not work correctly (the most expensive product is cheaper than others)', async () => {
-        browser.sleep(3000); //!!!
         await CatalogPage.clickOn(CatalogPage.orderLink);
-        browser.sleep(1000); //!!!
+        await CatalogPage.isClickable(CatalogPage.orderItem);
         await CatalogPage.clickOn(CatalogPage.orderItem);
-        browser.sleep(3000); //!!!
+        await CatalogPage.isVisibility(CatalogPage.nextProducts);
+        await CatalogPage.isClickable(CatalogPage.nextProducts);
         let results = await CatalogPage.getElements(CatalogPage.productPrice);
         for (let result of results) {
             expect(await CatalogPage.getPrice((await CatalogPage.getFirstResult(CatalogPage.productPrice)))).toBeGreaterThanOrEqual(await CatalogPage.getPrice(result));

@@ -5,16 +5,11 @@ exports.config = {
     },
     directConnect: true,
     specs: [
-        './spec/catalogSpec.js', 
-        './spec/registerSpec.js',
-        './spec/basketSpec.js',
-        './spec/servicesSpec.js',
-        './spec/forumSpec.js'
+        './spec/*[sS]pec.js'
     ],
     baseUrl: 'https://onliner.by',
     onPrepare: async () => {
         browser.waitForAngularEnabled(false);
-        browser.get('');
         browser.driver.manage().window().maximize();
     }
   };

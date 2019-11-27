@@ -14,7 +14,7 @@ class RegisterPage extends Page {
 
     async getPromptInvalidEmail(email) {
         await this.enterKey(email, this.emailInput);
-        await this.waitElement(this.invalidEmailPrompt);
+        await this.isVisibility(this.invalidEmailPrompt);
         let locator = this.elemIsPresent(this.invalidEmailPrompt);
         if (!locator) {
             return undefined;
@@ -26,14 +26,14 @@ class RegisterPage extends Page {
 
     async getPromptShortPassword(password) {
         await this.enterKey(password, this.passwordInput);
-        await this.waitElement(this.shortPasswordPrompt);
+        await this.isVisibility(this.shortPasswordPrompt);
         let prompt = await this.getElement(this.shortPasswordPrompt);
         return this.getTextOfElement(prompt);
     }
 
     async getPromptDifferentPasswords(otherPassword) {
         await this.enterKey(otherPassword, this.confirmPasswordInput);
-        await this.waitElement(this.confirmPasswordPrompt);
+        await this.isVisibility(this.confirmPasswordPrompt);
         let locator = await this.elemIsPresent(this.confirmPasswordPrompt);
         if (!locator) {
             return undefined;

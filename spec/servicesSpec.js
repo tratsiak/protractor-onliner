@@ -9,11 +9,11 @@ describe('Onliner services page', () => {
     });
 
     it(`should be contain "${data.orderStatus}" in every results`, async () => {
-        browser.sleep(3000); //!!!
+        await ServicesPage.isVisibility(ServicesPage.lastResult);
         await ServicesPage.scrollPageDown();
-        browser.sleep(3000); //!!!
+        await ServicesPage.isClickable(ServicesPage.statusCheckbox);
         await ServicesPage.clickAsUser(ServicesPage.statusCheckbox);
-        browser.sleep(3000); //!!!
+        await ServicesPage.isClickable(ServicesPage.pagination);
         let ordersStatus = await ServicesPage.getOrdersStatus(ServicesPage.orderStatus);
         for (status of ordersStatus) {
             expect(status).toContain(data.orderStatus);

@@ -6,8 +6,10 @@ class ServicesPage extends Page {
     servicesButton = '//a[contains(@class, "navigation__link") and contains(.,"Услуги")]';
     statusCheckbox = `//label[contains(@class, "checkbox") and contains(., "${data.statusSort}")]`;
     orderStatus = `//span[contains(@class, "ng-scope") and contains(., "${data.orderStatus}")]`;
-    countOfResults = '//div[contains(@class, "state_control")]';
+    countOfResults = '//div[contains(@class, "service-interaction__state_disabled_alter")]';
     images = '//span[contains(@class, "service-offers__image_person")]';
+    lastResult = '//div[contains(@class, "service-offers__list")]/div[last()]';
+    pagination = '//a[contains(@class, "service-pagination__main")]';
 
     async getOrdersStatus(xpath) {
         let orderStatus = [];

@@ -37,7 +37,7 @@ class Page {
         return await webElement.getText();
     }
 
-    async waitElement(xpath) {
+    async isClickable(xpath) {
         await browser.wait(EC.elementToBeClickable(element(By.xpath(xpath))));
     }
 
@@ -49,10 +49,14 @@ class Page {
     async scrollPageDown() {
         await browser.actions().sendKeys(protractor.Key.PAGE_DOWN).perform();
     }
-
+    
     async clickAsUser(xpath) {
         let element = await this.getElement(xpath);
         await browser.actions().click(element).perform();
+    }
+    
+    async isVisibility(xpath) {
+        await browser.wait(EC.visibilityOf(element(By.xpath(xpath))));
     }
 
 }

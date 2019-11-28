@@ -11,7 +11,7 @@ exports.config = {
     },
     directConnect: true,
     specs: [
-        './spec/catalog[sS]pec.js'
+        './spec/*[sS]pec.js'
     ],
     baseUrl: 'https://onliner.by',
     onPrepare: async () => {

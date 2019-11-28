@@ -3,7 +3,7 @@
 # Guide:
 
 1. Download all packages by "npm install"
-2. Start test by command "npm test"
+2. Start test by command "npm test [-- --browser=firefox]" (chrome by default)
 
 For correct working must be installed Node.js v12.4.0 
 

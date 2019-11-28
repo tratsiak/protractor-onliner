@@ -32,6 +32,6 @@ describe('Onliner catalog basket', () => {
         let basketButton = await CatalogPage.getFirstResult(CatalogPage.basketButton);
         await CatalogPage.clickOn(basketButton);
         await CatalogPage.isVisibility(CatalogPage.cartWrapper);
-        expect(CatalogPage.getElement(CatalogPage.cartProduct)).not.toBe(undefined);
+        expect(CatalogPage.elemIsPresent(CatalogPage.cartProduct)).toBe(true);
     });
 });

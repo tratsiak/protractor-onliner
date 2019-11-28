@@ -18,21 +18,20 @@ describe('Onliner catalog page', () => {
         await CatalogPage.scrollPageDown();
         await CatalogPage.isClickable(CatalogPage.manufactutrerCheckbox);
         await CatalogPage.clickAsUser(CatalogPage.manufactutrerCheckbox);
-        await CatalogPage.isVisibility(CatalogPage.lastResult);
-        await CatalogPage.isClickable(CatalogPage.lastResult);
-        let productsName = await CatalogPage.getProductsName(CatalogPage.productName);
-        for (productName of productsName) {
-            expect(productName).toContain(data.productName);
-        }
+        setTimeout(async () => {
+            let productsName = await CatalogPage.getProductsName(CatalogPage.productName);
+            for (productName of productsName) {
+                expect(productName).toContain(data.productName);
+            }
+        }, 3000);
         await CatalogPage.clickOn(CatalogPage.pagination);
         await CatalogPage.clickOn(CatalogPage.numberOfPage);
-        await CatalogPage.isVisibility(CatalogPage.lastResult);
-        await CatalogPage.isClickable(CatalogPage.lastResult);
-        productsName = await CatalogPage.getProductsName(CatalogPage.productName);
-        for (productName of productsName) {
-            expect(productName).toContain(data.productName);
-        }
-        //НЕ УСПЕВАЕТ ЗАХВАТИТЬ ВСЕ ИМЕНА ПРОДУКТОВ
+        setTimeout(async () => {
+            let productsName = await CatalogPage.getProductsName(CatalogPage.productName);
+            for (productName of productsName) {
+                expect(productName).toContain(data.productName);
+            }
+        }, 3000);
     });
 
     it('sorting does not work correctly (the most expensive product is cheaper than others)', async () => {

@@ -1,4 +1,5 @@
 const Page = require('./mainPage');
+const logger = require('../logger').logger;
 
 class ForumPage extends Page {
 
@@ -8,16 +9,19 @@ class ForumPage extends Page {
     timeOfCreation = '//a[@class="link-getlast"]';
     
     async getHeader(xpath) {
+        logger.trace('get header');
         let header = await this.getTextOfElement(await this.getElement(xpath));
         return header.match(/^[А-Яа-я\w ]+$/m)[0];
     }
 
     async getCountOfTopic(xpath) {
+        logger.trace('get count of topics');
         let count = await this.getTextOfElement(await this.getElement(xpath));
         return Number.parseInt((count.match(/\(.+\)/)[0]).replace(/[а-я]*[\(\)][а-я]*/g, ''));
     }
 
     async getTimeofCreation(xpath) {
+        logger.trace('get time of creation topics');
         let times = [];
         let results = await this.getElements(xpath);
         for (let result of results) {

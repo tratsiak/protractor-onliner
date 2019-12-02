@@ -1,4 +1,5 @@
 const Page = require('./mainPage');
+const logger = require('../logger').logger;
 
 class ServicesPage extends Page {
 
@@ -12,21 +13,25 @@ class ServicesPage extends Page {
     getCheckbox(locator, section, checkbox) {
         let updatedLocator = locator.replace('%sName', section);
         updatedLocator = updatedLocator.replace('%s', checkbox);
+        logger.trace('get checkbox locator');
         return updatedLocator;
     }
 
     async getOrdersStatus(xpath) {
         let orderStatus = await element.all(by.xpath(xpath)).getText();
+        logger.trace('get order status');
         return orderStatus;
     }
 
     async getCountOfOrders(xpath) {
         let count = await this.getTextOfElement(await this.getElement(xpath));
+        logger.trace('get count of orders');
         return Number.parseInt(count.match(/\w+.\w+/)[0].replace(' ', ''));
     }
 
     async getImagesOfOrders(xpath) {
         let images = await element.all(by.xpath(xpath)).getCssValue('background-image');
+        logger.trace('get order status');
         return images; 
     }
 }

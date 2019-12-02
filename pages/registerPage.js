@@ -1,4 +1,5 @@
 const Page = require('./mainPage');
+const logger = require('../logger').logger;
 
 class RegisterPage extends Page {
 
@@ -13,6 +14,7 @@ class RegisterPage extends Page {
     confirmPasswordPrompt = '//div[contains(@class, "extended") and contains(., "не совпадают")]';
 
     async getPromptInvalidEmail(email) {
+        logger.trace('entering invalid email and getting an error');
         await this.enterKey(email, this.emailInput);
         await this.isVisibility(this.invalidEmailPrompt);
         let locator = this.elemIsPresent(this.invalidEmailPrompt);
@@ -25,6 +27,7 @@ class RegisterPage extends Page {
     }
 
     async getPromptShortPassword(password) {
+        logger.trace('entering invalid password and getting an error');
         await this.enterKey(password, this.passwordInput);
         await this.isVisibility(this.shortPasswordPrompt);
         let prompt = await this.getElement(this.shortPasswordPrompt);
@@ -32,6 +35,7 @@ class RegisterPage extends Page {
     }
 
     async getPromptDifferentPasswords(otherPassword) {
+        logger.trace('entering different passwords and getting an error');
         await this.enterKey(otherPassword, this.confirmPasswordInput);
         await this.isVisibility(this.confirmPasswordPrompt);
         let locator = await this.elemIsPresent(this.confirmPasswordPrompt);
@@ -44,6 +48,7 @@ class RegisterPage extends Page {
     }
 
     async enterKey(key, xpath) {
+        logger.trace('enter key: ' + key);
         let input = await this.getElement(xpath);
         await input.sendKeys(key);
     }

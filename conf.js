@@ -1,3 +1,4 @@
+const logger = require('./logger').logger;
 let setBrowser = process.argv[3];
 if (setBrowser !== undefined) 
     setBrowser = setBrowser.replace(/--browser=/, '') === 'firefox' ? 'firefox' : 'chrome';
@@ -14,8 +15,14 @@ exports.config = {
         './spec/*[sS]pec.js'
     ],
     baseUrl: 'https://onliner.by',
-    onPrepare: async () => {
+    onPrepare: () => {
         browser.waitForAngularEnabled(false);
         browser.driver.manage().window().maximize();
+    },
+    beforeLaunch: () => {
+        logger.info('Protractor-onliner test launched');
+    },
+    onComplete: () => {
+        logger.info('Protractor-onliner test completed');
     }
 };

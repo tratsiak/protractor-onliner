@@ -1,4 +1,5 @@
 const Page = require('./mainPage');
+const logger = require('../logger').logger;
 
 class CatalogPage extends Page {
 
@@ -23,49 +24,60 @@ class CatalogPage extends Page {
     intoBusketButton = '//a[contains(@class, "product-aside__item-button") and contains(., "В корзине")]';
 
     getCheckbox(locator, section, checkbox) {
+        logger.trace('get checkbox locator');
         let updatedLocator = locator.replace('%sName', section);
         updatedLocator = updatedLocator.replace('%pName', checkbox);
         return updatedLocator;
     }
 
     async listNavigateTo(locator, item) {
+        logger.trace('mouse move on: ' + item);
         let element = await this.getElement(locator.replace('%i', item));
         await browser.actions().mouseDown(element).perform();
     }
 
     async classifierNavigateTo(locator, category) {
+        logger.trace('navigate to: ' + category);
         await element(by.xpath(locator.replace('%c', category))).click();
     }
 
     async selectOrderTo(locator, category) {
+        logger.trace('select: ' + category);
+        await this.isClickable(locator.replace('%c', category));
         await element(by.xpath(locator.replace('%c', category))).click();
     }
 
     async goToPage(locator, number) {
+        logger.trace('go to page: ' + number);
         await element(by.xpath(locator.replace('%n', number))).click();
     }
 
     async barNavigateTo(locator, section) {
+        logger.trace('navigate to: ' + section);
         await element(by.xpath(locator.replace('%s', section))).click();
     }
 
     async getPrices(product) {
+        logger.trace('get prices of products');
         let prices = await element.all(by.xpath(product)).getText();
         prices = prices.map(item => Number.parseFloat(item.match(/[\w,]+/)[0].replace(',', '.')));
         return prices;
     }
 
     async getProductsName(xpath) {
+        logger.trace('get names of products');
         let productsName = await element.all(by.xpath(xpath)).getText();
         return productsName;
     }
 
     async getFirstResult(xpath) {
+        logger.trace('get first result');
         let results = await this.getElements(xpath);
         return results[0];
     }
 
     async moveToElement(xpath) {
+        logger.trace('mouse move to element');
         let element = await this.getElement(xpath);
         await browser.actions().mouseDown(element).perform();
     }

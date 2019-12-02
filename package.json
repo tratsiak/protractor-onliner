@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "log4js": "^6.1.0",
     "protractor": "^5.4.2"
   }
 }

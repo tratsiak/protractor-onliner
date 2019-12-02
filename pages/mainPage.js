@@ -2,6 +2,8 @@ let EC = protractor.ExpectedConditions;
 
 class Page {
 
+    mainNavigate = '//a[contains(@class, "navigation__link") and contains(.,"%s")]';
+
     async open() {
         await browser.get('');
     }
@@ -17,16 +19,20 @@ class Page {
             await webElement.click();
     }
 
+    async mainNavigateTo(locator, word) {
+        await element(by.xpath(locator.replace('%s', word))).click();
+    }
+
     async getTitle() {
         return await browser.getTitle();
     }
 
     async getElement(xpath) {
-        return await browser.findElement(by.xpath(xpath));
+        return await element(by.xpath(xpath));
     }
 
     async getElements(xpath) {
-        return await browser.findElements(by.xpath(xpath));
+        return await element.all(by.xpath(xpath));
     }
 
     async elemIsPresent(xpath) {

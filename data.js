@@ -10,9 +10,7 @@ const invalidEmail = 'invalidEmail',
 
 //For test case #4
 
-const statusSort = 'Невыполненные',
-      orderStatus = 'Не выполнен',
-      countOfOrders = 1;
+const countOfOrders = 1;
 
 //For test case #5
 
@@ -23,8 +21,6 @@ module.exports = {
     shortPassword: shortPassword,
     otherPassword: otherPassword,
     productName: productName,
-    statusSort: statusSort,
-    orderStatus: orderStatus,
     countOfOrders: countOfOrders,
     countOfTopic: countOfTopic
 }

@@ -1,23 +1,22 @@
 const Page = require('./mainPage');
-const data = require('../data');
 
 class ServicesPage extends Page {
 
-    servicesButton = '//a[contains(@class, "navigation__link") and contains(.,"Услуги")]';
-    statusCheckbox = `//label[contains(@class, "checkbox") and contains(., "${data.statusSort}")]`;
-    orderStatus = `//span[contains(@class, "ng-scope") and contains(., "${data.orderStatus}")]`;
+    sectionCheckbox = '//div[contains(@class, "service-form__row") and contains(., "%sName")]//li/label[contains(.,"%s")]';
+    orderStatus = '//div[contains(@class, "service-offers__status")]';
     countOfResults = '//div[contains(@class, "service-interaction__state_disabled_alter")]';
     images = '//span[contains(@class, "service-offers__image_person")]';
     lastResult = '//div[contains(@class, "service-offers__list")]/div[last()]';
     pagination = '//a[contains(@class, "service-pagination__main")]';
 
+    getCheckbox(locator, section, checkbox) {
+        let updatedLocator = locator.replace('%sName', section);
+        updatedLocator = updatedLocator.replace('%s', checkbox);
+        return updatedLocator;
+    }
+
     async getOrdersStatus(xpath) {
-        let orderStatus = [];
-        let results = await this.getElements(xpath);
-        for (let result of results) {
-            let text = await this.getTextOfElement(result);
-            orderStatus.push(text);
-        }
+        let orderStatus = await element.all(by.xpath(xpath)).getText();
         return orderStatus;
     }
 
@@ -27,12 +26,7 @@ class ServicesPage extends Page {
     }
 
     async getImagesOfOrders(xpath) {
-        let images = [];
-        let results = await this.getElements(xpath);
-        for (let result of results) {
-            let style = await result.getCssValue('background-image');
-            images.push(style);
-        }
+        let images = await element.all(by.xpath(xpath)).getCssValue('background-image');
         return images; 
     }
 }

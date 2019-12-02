@@ -1,16 +1,16 @@
 const CatalogPage = require('../pages/catalogPage');
+const MainPage = new (require('../pages/mainPage'))();
 
 describe('Onliner catalog basket', () => {
     it('tab title should be "Каталог Onliner"', async () => {
-        await CatalogPage.open('');
-        await CatalogPage.clickOn(CatalogPage.catalogButton);
+        await MainPage.open('');
+        await MainPage.mainNavigateTo(MainPage.mainNavigate, 'Каталог');
         expect(CatalogPage.getTitle()).toBe('Каталог Onliner');
     });
 
     it('page header should be "Игровые приставки"', async () => {
-        await CatalogPage.clickOn(CatalogPage.electronicsButton);
-        await CatalogPage.isClickable(CatalogPage.videogamesButton);
-        await CatalogPage.moveToElement(CatalogPage.videogamesButton);
+        await CatalogPage.classifierNavigateTo(CatalogPage.classifierNavigate, "Электроника");
+        await CatalogPage.listNavigateTo(CatalogPage.listNavigate, "Видеоигры")
         await CatalogPage.isClickable(CatalogPage.gameConsoleButton);
         await CatalogPage.clickOn(CatalogPage.gameConsoleButton);
         expect(CatalogPage.getHeader(CatalogPage.title)).toBe("Игровые приставки");

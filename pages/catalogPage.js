@@ -1,21 +1,19 @@
 const Page = require('./mainPage');
-const data = require('../data');
 
 class CatalogPage extends Page {
 
-    catalogButton = '//a[contains(@class, "navigation__link") and contains(.,"Каталог")]';
-    mobilePhonesButton = '//a[contains(@class, "catalog-bar__link") and contains(., "Мобильные телефоны")]';
+    mobilePhonesButton = '//a[contains(@class, "catalog-bar__link") and contains(., "%s")]';
     title = '//h1[@class="schema-header__title"]';
-    manufactutrerCheckbox = `//li//label[contains(@class, "item") and contains(., "${data.productName}")]`;
+    sectionCheckbox = '//div[@class="schema-filter__fieldset" and contains(., "%sName")]//li/label[contains(.,"%pName")]';
     productName = '//div[contains(@class, "4")]/div[contains(@class, "title")]';
     pagination = '//div[@class="schema-pagination__dropdown"]';
-    numberOfPage = '//li[@class="schema-pagination__pages-item" and ./a[text()=2]]';
+    numberOfPage = '//li[@class="schema-pagination__pages-item" and ./a[text()=%n]]';
     orderLink = '//a[@class="schema-order__link"]';
-    orderItem = '//div[@class="schema-order__item" and contains(., "Дорогие")]';
+    orderItem = '//div[@class="schema-order__item" and contains(., "%c")]';
     productPrice = '//a[contains(@class, "price-value_primary")]';
     nextProducts = '//a[@class="schema-pagination__main"]';
-    electronicsButton = '//li[contains(., "Электроника")]';
-    videogamesButton = '//div[@data-id="1"]//div[contains(@class, "item") and contains(., "Видеоигры")]';
+    classifierNavigate = '//li[contains(., "%c")]';
+    listNavigate = '//div[@data-id="1"]//div[contains(@class, "item") and contains(., "%i")]';
     gameConsoleButton = '//a[contains(@href, "console") and contains(@class, "item")]';
     productLink = '//div[contains(@class, "product__title")]//a';
     basketButton = '//a[contains(@class, "product-aside__item-button")]';
@@ -24,18 +22,41 @@ class CatalogPage extends Page {
     lastResult = '//div[@id="schema-products"]/div[last()]';
     intoBusketButton = '//a[contains(@class, "product-aside__item-button") and contains(., "В корзине")]';
 
-    async getPrice(element) {
-        let text = await this.getTextOfElement(element);
-        return Number.parseFloat(text.match(/[\w,]+/)[0].replace(',', '.'));
+    getCheckbox(locator, section, checkbox) {
+        let updatedLocator = locator.replace('%sName', section);
+        updatedLocator = updatedLocator.replace('%pName', checkbox);
+        return updatedLocator;
+    }
+
+    async listNavigateTo(locator, item) {
+        let element = await this.getElement(locator.replace('%i', item));
+        await browser.actions().mouseDown(element).perform();
+    }
+
+    async classifierNavigateTo(locator, category) {
+        await element(by.xpath(locator.replace('%c', category))).click();
+    }
+
+    async selectOrderTo(locator, category) {
+        await element(by.xpath(locator.replace('%c', category))).click();
+    }
+
+    async goToPage(locator, number) {
+        await element(by.xpath(locator.replace('%n', number))).click();
+    }
+
+    async barNavigateTo(locator, section) {
+        await element(by.xpath(locator.replace('%s', section))).click();
+    }
+
+    async getPrices(product) {
+        let prices = await element.all(by.xpath(product)).getText();
+        prices = prices.map(item => Number.parseFloat(item.match(/[\w,]+/)[0].replace(',', '.')));
+        return prices;
     }
 
     async getProductsName(xpath) {
-        let productsName = [];
-        let results = await this.getElements(xpath);
-        for (let result of results) {
-            let text = await this.getTextOfElement(result);
-            productsName.push(text);
-        }
+        let productsName = await element.all(by.xpath(xpath)).getText();
         return productsName;
     }
 

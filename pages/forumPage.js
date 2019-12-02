@@ -1,10 +1,8 @@
 const Page = require('./mainPage');
-const data = require('../data');
 
 class ForumPage extends Page {
 
-    forumButton = '//a[contains(@class, "navigation__link") and contains(.,"Форум")]';
-    newest = '//span[contains(@class, "sign") and contains(.,"Новое")]';
+    newest = '//div[contains(@class, "part_1")]//span[contains(@class, "sign")]';
     header = '//h1[@class="m-title"]';
     lastPage = '//div[@class="b-hdtopic"]//li[last()-1]';
     timeOfCreation = '//a[@class="link-getlast"]';

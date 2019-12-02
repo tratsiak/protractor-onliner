@@ -1,10 +1,11 @@
 const data = require('../data');
 const RegisterPage = require('../pages/registerPage');
+const MainPage = new (require('../pages/mainPage'))();
 
 describe('Onliner register page', () => {
     it('title should be "Регистрация"', async () => {
-        await RegisterPage.open('');
-        await RegisterPage.clickOn(RegisterPage.loginButton);
+        await MainPage.open('');
+        await MainPage.clickOn(RegisterPage.loginButton);
         await RegisterPage.clickOn(RegisterPage.registerButton);
         expect(RegisterPage.getHeader(RegisterPage.title)).toBe('Регистрация');
     });

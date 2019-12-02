@@ -1,10 +1,11 @@
 const ForumPage = require('../pages/forumPage');
+const MainPage = new (require('../pages/mainPage'))();
 const data = require('../data');
 
 describe('Onliner forum page', () => {
     it('tab title should be "Форум onliner.by - Главная страница"', async () => {
-        await ForumPage.open('');
-        await ForumPage.clickOn(ForumPage.forumButton);
+        await MainPage.open('');
+        await MainPage.mainNavigateTo(MainPage.mainNavigate, 'Форум');
         expect(ForumPage.getTitle()).toBe('Форум onliner.by - Главная страница');
     });
 
@@ -17,10 +18,10 @@ describe('Onliner forum page', () => {
         expect(ForumPage.getCountOfTopic(ForumPage.header)).toBeGreaterThanOrEqual(data.countOfTopic);
     });
 
-    it(`the number of topics should be ${data.countOfTopic} or more`, async () => {
+    it(`topic creation time should be less than 24 hours ago`, async () => {
         await ForumPage.clickOn(ForumPage.lastPage);
         let times = await ForumPage.getTimeofCreation(ForumPage.timeOfCreation);
-        for (time of times) {
+        for (let time of times) {
             expect(time).toBeLessThanOrEqual(23);
         }
     });

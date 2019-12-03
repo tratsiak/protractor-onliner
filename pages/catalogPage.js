@@ -33,6 +33,7 @@ class CatalogPage extends Page {
     async listNavigateTo(locator, item) {
         logger.trace('mouse move on: ' + item);
         let element = await this.getElement(locator.replace('%i', item));
+        await this.isClickable(this.listNavigate.replace('%i', item));
         await browser.actions().mouseDown(element).perform();
     }
 

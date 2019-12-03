@@ -18,6 +18,18 @@ exports.config = {
     onPrepare: () => {
         browser.waitForAngularEnabled(false);
         browser.driver.manage().window().maximize();
+        let AllureReporter = require('jasmine-allure-reporter');
+        jasmine.getEnv().addReporter(new AllureReporter({
+            resultsDir: 'allure-results'
+        }));
+        jasmine.getEnv().afterEach(function(done){
+            browser.takeScreenshot().then(function (png) {
+              allure.createAttachment('Screenshot', function () {
+                return new Buffer(png, 'base64')
+              }, 'image/png')();
+              done();
+            })
+        });
     },
     beforeLaunch: () => {
         logger.info('Protractor-onliner test launched');

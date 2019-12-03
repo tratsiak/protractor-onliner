@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "prepare": "node node_modules/protractor/bin/webdriver-manager update",
-    "test": "node node_modules/protractor/bin/protractor conf.js"
+    "test": "rmdir /S /Q allure-results && node node_modules/protractor/bin/protractor conf.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "jasmine-allure-reporter": "^1.0.2",
     "log4js": "^6.1.0",
     "protractor": "^5.4.2"
   }

@@ -24,14 +24,14 @@ describe('Onliner catalog page', () => {
         await CatalogPage.scrollPageDown();
         await CatalogPage.isClickable(CatalogPage.getCheckbox(CatalogPage.sectionCheckbox, "Производитель", data.productName));
         await CatalogPage.clickAsUser(CatalogPage.getCheckbox(CatalogPage.sectionCheckbox, "Производитель", data.productName));
-        browser.sleep(3000);
+        await CatalogPage.waitForSeconds(3000);
         let productsName = await CatalogPage.getProductsName(CatalogPage.productName);
         for (let productName of productsName) {
             expect(productName).toContain(data.productName);
         }
         await CatalogPage.clickOn(CatalogPage.pagination);
         await CatalogPage.goToPage(CatalogPage.numberOfPage, '2');
-        browser.sleep(3000);
+        await CatalogPage.waitForSeconds(3000);
         productsName = await CatalogPage.getProductsName(CatalogPage.productName);
         for (let productName of productsName) {
             expect(productName).toContain(data.productName);

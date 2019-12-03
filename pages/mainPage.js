@@ -79,5 +79,9 @@ class Page {
         await browser.wait(EC.visibilityOf(element(By.xpath(xpath))));
     }
 
+    async waitForSeconds(seconds) {
+        await browser.sleep(seconds);
+    }
+
 }
 module.exports = Page;
